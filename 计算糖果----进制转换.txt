@@ -1,0 +1,71 @@
+计算糖果  
+
+输入  a,b,c,d 四个数 
+是否存在三个整数 ：A ,B ,C,    满足  A-B=a,B-C=b,A+B=c,B+C=d;
+存在则输出  A， B， C；
+否则输出：No；
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int a,b,c,d;
+    int A ,B ,C;
+    while(cin>>a>>b>>c>>d)
+    {
+        A=(a+c)/2;
+        B=(b+d)/2;
+        C=(d-b)/2;
+        if(A-B==a && B-C==b && A+B==c && B+C==d)
+        {
+            cout<<A<<" "<<B<<" "<<C<<endl;
+        }
+        else
+            cout<<"No"<<endl;
+    }
+    return 0;
+}
+
+
+进制转换
+
+给定十进制数M,以及要转换的进制数N。2<=N<=16 ,
+如果N>9,则对应的数字规则参考16进制（比如，10用A表示，等等）
+输出转换后的序列，其中
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    //s表示通过进制转换后M的N进制数
+    string s = "";
+    string tables = "0123456789ABCDEF";//从二进制到十六进制的数的集合
+
+    //输入某个数M，和需要转换的进制N
+    int M = 0;
+    int N = 0;
+    cin >> M >> N;
+
+    if (M == 0)
+    {
+        s = "0";
+    }
+
+    while (M)
+    {
+        if (M < 0)
+        {
+            M = -M;
+            cout << "-";
+        }
+
+        s = tables[M%N] + s;
+        M /= N;
+    }
+
+    //注意：因为s是字符串，最好在输出的时候将该字符串以C风格显示出来即就是s.c_str(),某些编译器可以跑过，但有的编译器就必须加上
+    cout << s.c_str() << endl;
+    return 0;
+}
+
