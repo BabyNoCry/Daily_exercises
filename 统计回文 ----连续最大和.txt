@@ -1,0 +1,78 @@
+统计回文 
+输入两个字符串   ，将第二个字符串插入到第一个中，能构成回文字符串的情况有多少种。
+输出：次数
+例如：aba    ，   b
+输出：2
+
+#include<iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+bool Huiwen(string str1)
+{
+    int length=str1.length();
+    for(int i=0;i<length;i++)
+    {
+        if(str1[i]!=str1[length-1])
+            return false;
+        length=length-1;
+    }
+    return true;
+}
+
+int main()
+{
+    string str1;
+    string str2;
+   int count=0;
+    getline(cin,str1);
+    getline(cin,str2);
+    //注意不要漏掉在str1的末尾插入str2的情况,因此边界控制在0<=<i=str1.size();
+    int len =str1.size();
+    for(int i=0;i<=str1.size();i++)
+    { 
+        string str3 = str1.substr(0, i) + str2 + str1.substr(i);
+        if(Huiwen(str3))
+        {
+                count++;
+        }
+  
+    }
+    //注意不要漏掉在str1的末尾插入str2的情况
+    cout<<count;
+    return 0;
+}
+
+
+最大连续和
+输入：整数N（序列元素数目）
+输入：N 个整数
+输出：连续子数组序列和
+例如： -1  2  1    最大子序列为（2,1）则输出3
+
+#include<iostream>
+using namespace std;
+int main()
+{
+    int n;
+    int max_num=0^-1;    //0^-1   即就是32位全1   最小负整数
+    int cur_num=0;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++ )
+    {
+        cin>>a[i];
+        cur_num+=a[i];
+        if(cur_num>max_num)
+        {
+            max_num=cur_num;
+        }
+        if(cur_num<0)
+        {
+            cur_num=0;
+        }
+    }
+    cout<<max_num;
+    return 0;
+}
