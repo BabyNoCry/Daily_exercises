@@ -1,0 +1,89 @@
+字符串中出现的最常的数字串  
+例如：a1245fa46     答案：1245
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+int main()
+{
+	char str[256] = { 0 };
+	cin >> str;
+        int count = 0;
+		int j = 0;
+		int begin_old = 0;
+		int begin_new = 0;
+		for (int i = 0; i < strlen(str); i++)
+		{
+
+			if (str[i] >= '0'&&str[i] <= '9')
+			{
+				j++;
+			}
+			else
+			{
+
+				if (j > count)
+				{
+					count = j;
+					begin_old = begin_new;
+				}
+
+				j = 0;
+				begin_new = i + 1;
+
+			}
+			if (i == strlen(str) - 1)
+			{
+				if(j>count)
+				begin_old = begin_new;
+			}
+		}
+		if(begin_old==begin_new)
+		{
+			cout << str+begin_old <<endl;;	
+		}
+		else
+		{
+			for(int i=begin_old;i<begin_old+count;i++)
+			{
+				cout<<str[i];
+			}
+		}
+	return 0;
+}
+
+
+n个数中出现次数大于等于n/2的数
+例如： 1   2   3   4   1  1     输出：1
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int a[100]={0};
+    int i=0;
+    int n;
+    while(cin>>n)
+    {
+        a[i]=n;
+        i++;
+    }
+    
+    for(int j=0;j<i;j++)
+    {int count=0;
+            for(int m=0;m<i;m++)
+            {
+                if(a[j]==a[m])
+                {
+                    count++;
+                }
+            }
+     if(count>=(i/2))
+     {
+         cout<<a[j];
+         break;
+     }
+    }
+    return 0;
+}
