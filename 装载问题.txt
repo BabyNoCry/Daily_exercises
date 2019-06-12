@@ -1,0 +1,61 @@
+装载问题
+
+template<class Type>
+class Loading{
+
+friend Type MaxLoading(Type[],Type,int);
+
+private:
+	void Backtrack(int  i);
+	int n;	//集装箱数
+	Type* w,	//集装箱重量数组
+	c,	//第一艘轮船的载重量
+	cw ,	//当前载重量
+	bestw,	//当前最有载重量
+	r；	//剩余集装箱重量
+}；
+template<class Type>
+void Loading<Type>::Backtrack(int i)
+{
+//搜索地i层结点
+	if(i>n)
+	{//到达叶结点
+	
+	bestw=cw;
+	return ;
+	}
+//搜索子树
+	r-=w[i];
+	if(cw+w[i]<=c)
+	{
+		cw+=w[i];
+		Barktrsck(i+1);
+		cw-=w[i];
+	}
+	
+	if(cw+r>bestw)
+		Barktrack(i+1);
+	r+=w[i];
+}
+
+template<class Type>
+Type MaxLoading(Type w[],Type c,int)
+{
+	//返回最有载重量
+	Loading<Type> X;
+	//初始化X
+	X.w=w;
+	X.c=c;
+	X.n=n;
+	X.bestw=0;
+	X.cw=0;
+
+	//初始化r
+	X.r=0;
+	for(int i=1;i<=n;i++)
+	{
+		X.r+=w[i];
+	//计算最有载重量
+	X.Backtrack(1);
+	return X.bestw;
+}
