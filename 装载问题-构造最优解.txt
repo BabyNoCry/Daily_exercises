@@ -1,0 +1,75 @@
+装载问题
+#include<iostream>
+using namespace std;
+template<class Type>
+class Loading{
+	friend Type MaxLoading(Type w[],Type,int ,int []);
+	private:
+		void Backtrack(int i);
+		int n,
+		*bestx,
+		*x;
+		Type* w,
+		c,
+		cw,
+		bestw,
+		r; 
+};
+
+template<class Type>
+void Loading<Type>:: Backtrack(int i)
+{
+	if(i>n)
+	{
+		if(cw>bestw)
+		{
+			for(int j=1;i<=n;j++)
+			bestx[j]=x[j];
+			bestw=cw;
+		}
+		return;
+	}
+	
+	r-=w[i];
+	if(cw+w[i]<=c)
+	{
+		x[i]=1;
+		cw+=w[i];
+		Backtrack(i+1);
+		cw-=w[i];
+	}
+	
+	if(cw+r>best)
+	{
+		x[i]=0;
+		Backtrack(i+1);
+		 
+	}
+	
+	r+=w[i];
+}
+
+template<class Type>
+Type MaxLoading(Type w[],type c,int n,int bestx[])
+{
+	Type<Type> X;
+	//初始化X
+	X.x=new int(n+1);
+	X.bestx=bestx;
+	X.c=c;
+	X.n=n;
+	X.w=w;
+	X.bestw=0;
+	X.cw=0;
+	//初始化R
+	X.r=0;
+	for(int i=1;i<=n;i++)
+	{
+		X.r+=w[i];
+	 } 
+	 
+	 X.Backtrack(1);
+	 delete[] X.x;
+	 return X.bestw;
+	 
+}
