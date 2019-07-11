@@ -1,0 +1,143 @@
+养兔子
+一只成熟的兔子每天能产下一胎兔子。每只小兔子的成熟期是一天。
+ 某人领养了一只小兔子，请问第N天以后，他将会得到多少只兔子。
+#include<iostream>
+using namespace std;
+int main()
+{
+    long long a[95]={1,2};
+    int n,i;
+    for(i=2;i<91;i++)
+        a[i]=a[i-1]+a[i-2];
+    while(cin>>n)
+    {
+        cout<<a[n-1]<<endl;
+    }
+    return 0;
+}
+
+收件人列表
+NowCoder每天要给许多客户写电子邮件。正如你所知，如果一封邮件中包含多个收件人，收件人姓名之间会用一个逗号和空格隔开；如果收件人姓名也包含空格或逗号，则姓名需要用双引号包含。
+现在给你一组收件人姓名，请你帮他生成相应的收件人列表。
+
+输入描述:
+输入包含多组数据。
+
+每组数据的第一行是一个整数n (1≤n≤128)，表示后面有n个姓名。
+
+紧接着n行，每一行包含一个收件人的姓名。姓名长度不超过16个字符。
+
+
+输出描述:
+对应每一组输入，输出一行收件人列表。
+示例1
+输入
+3
+Joe
+Quan, William
+Letendre,Bruce
+2
+Leon
+Kewell
+输出
+Joe, "Quan, William", "Letendre,Bruce"
+Leon, Kewell
+
+代码如下:
+//用函数sprintf拼接
+// write your code here cpp
+#include<iostream>
+#include<string>
+#include<stdio.h>
+#include<vector>
+using namespace std;
+int main()
+{
+    int n;
+    while(cin>>n)
+    {
+    	getchar();
+    	char buf[3000];
+       vector<string> v;
+        string str;
+        
+        for(int x=0;x<n;x++)
+        {
+            getline(cin,str); 
+            v.push_back(str);
+        }
+      
+        int f=0;
+        
+        for(int i=0;i<v.size();i++)
+        {
+        
+            for(int j=0;j<v[i].size();j++)
+            {
+    			
+                if((v[i][j]==' ')||(v[i][j]==','))
+                {
+                	string s="";
+                	s+='"';
+                    v[i].insert(0,s.c_str());
+                    v[i]+='"';
+                    break;
+                }
+			}    
+				if(i!=n-1)
+                     {
+					 
+                  	  f+=sprintf(buf+f,"%s, ",v[i].c_str());
+				 	}
+					  else
+					  {
+                    	f+=sprintf(buf+f,"%s",v[i].c_str());      
+                 	}
+        } 
+		cout<<buf<<endl;  
+          
+    }
+    return 0;
+}
+
+//直接打印
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <functional>
+#include <climits>
+#include<unordered_map>
+#include<unordered_set>
+ 
+using namespace std;
+ 
+bool containSpaceOrComma(string& s)
+{
+    for (auto&c : s)
+    {
+        if (c == ' ' || c == ',') return true;
+    }
+ 
+    return false;
+}
+ 
+int main()
+{
+    //freopen("in.txt", "r", stdin);
+    int n;
+    while (cin >> n)
+    {
+        getchar();
+        string s;
+        for (int i = 0; i < n; ++i)
+        {
+            getline(cin, s);
+            if (containSpaceOrComma(s)) cout << "\"" << s << "\"";
+            else cout << s;
+            if (i < n - 1) cout << ", ";
+        }
+        cout << endl;
+    }
+}
