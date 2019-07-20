@@ -1,0 +1,56 @@
+将字符串 "PAYPALISHIRING" 以Z字形排列成给定的行数：
+ 
+P   A   H   N
+A P L S I I G
+Y   I   R
+之后从左往右，逐行读取字符："PAHNAPLSIIGYIR"
+ 
+实现一个将字符串进行指定行数变换的函数:
+ 
+string convert(string s, int numRows);
+示例 1:
+ 
+输入: s = "PAYPALISHIRING", numRows = 3
+输出: "PAHNAPLSIIGYIR"
+示例 2:
+ 
+输入: s = "PAYPALISHIRING", numRows = 4
+输出: "PINALSIGYAHRPI"
+找规律的题目,字符串各字母内容不管,找下标的规律,拿上面的第二个样例为例子,
+下标排列是这样子的
+/*
+       * 0     6     12
+       * 1   5 7  11 13
+       * 2  4  8 10  14
+       * 3     9    
+       * */
+
+可以看出,除去斜边的,每一行都是一个等差数列,例如0,6,12
+
+而斜边的是竖排中的数加上某一个固定值,例如第二行就是1+4=5,7+4=11
+
+然后综合可以总结出规律,等差数列的差是numRows+numRows-2,即2*numRows-2,其实就是同一行相邻数字中隔的数字
+
+然后每一行中间要加的固定值,是前面等差数列的差依次-2,因为每向下一行两个数间隔就少两个数,例如第二行固定值4,第三行固定值就是4-2=2
+
+之后就是用代码实现了,相信也不难写了
+
+if(numRows>s.length()||numRows==1)
+            return s;
+        int length = s.length();
+        int count = numRows*2-2;
+        int next = 0;
+        String result = "";
+        for(int i = 0;i < numRows;i++){
+            for(int j = i;j < length;){
+                result = result + s.charAt(j);
+                next = j + count - 2 * i;
+                if(i!=0&&i!=numRows-1&&next<length){
+                    //第一行和最后一行竖排中的数加上固定值和这个数字在等差数列的下一个值相等
+                    //所以这两行不管它
+                    result = result + s.charAt(next);
+                }
+                j = j + count;
+            }
+        }
+        return result;
