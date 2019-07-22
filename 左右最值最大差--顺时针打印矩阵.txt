@@ -1,0 +1,54 @@
+左右最值最大差
+
+给定一个长度为N(N>1)的整型数组A，可以将A划分成左右两个部分，左部分A[0..K]，右部分A[K+1..N-1]，K可以取值的范围是[0,N-2]。求这么多划分方案中，左部分中的最大值减去右部分最大值的绝对值，最大是多少？
+
+给定整数数组A和数组的大小n，请返回题目所求的答案。
+
+测试样例：
+[2,7,3,1,1],5
+返回：6
+//#include<iostream>
+
+//#include <algorithm>  
+//using namespace std;
+//#include<vector>
+//#include<cmath> 
+class MaxGap {
+public:
+    int findMaxGap(vector<int> A, int n) {
+        // write code here
+//        cout<<"start:"<<endl;
+        int count=0;
+        for(int i=0;i<=n-2;i++)
+        {
+            vector<int> v1;
+           // cout<<"v1"<<":";
+            for(int j=0;j<=i;j++)
+            {
+                v1.push_back(A[j]);
+                //cout<<A[j];
+            }
+            //cout<<endl;
+            
+            vector<int> v2;
+              for(int j=i+1;j<n;j++)
+           	 {
+                v2.push_back(A[j]);
+              //  cout<<A[j];
+            }
+            
+            sort(v2.begin(),v2.end());
+            sort(v1.begin(),v1.end());
+            if( abs(v1[v1.size()-1] - v2[v2.size()-1])>count)
+            {
+            	//cout<<"abs(v1[v1.size()-1] - v2[v2.size()-1]="<< abs(v1[v1.size()-1] - v2[v2.size()-1])<<endl;
+                count=abs(v1[v1.size()-1]-v2[v2.size()-1]);
+            }
+        }
+        return count;
+    }
+};
+
+顺指针打印矩阵
+输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+ 则依次打印出数字1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.
