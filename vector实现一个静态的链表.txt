@@ -1,0 +1,42 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+template<class T>
+class my_list
+{
+	my_list(const int capacity = 10)
+	:Capacity(capacity)
+	,Size(0)
+	{} 
+	//查找一个结点是否在链表中 
+	bool Find(T& data)
+	{
+		for(auto e: Vt)
+		{
+			if(e == data)
+				return true;
+		}
+		return false;
+	}
+
+	//给第pos个结点处插入一个data 	
+	void Push(size_t pos,T& data)
+	{
+		assert(pos<Vt.size()&& Size<=Capacity) 
+		Vt.insert(Vt.begin()+pos,data);
+		Size++;
+	}
+	
+	// 删除第pos个结点 
+	void Erase(size_t pos)
+	{
+		assert(pos < Vt.size()&&Size>0)
+		Vt.erase(Vt.begin()+pos);
+		Size--;
+	}
+
+	private:
+		vector<T> Vt;
+		int Capacity; 
+		int Size;
+};
