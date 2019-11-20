@@ -1,0 +1,65 @@
+class Singleton
+{
+	public:
+		static Singleton* GetInstance()
+		{
+			return &m_instance;
+		}
+		
+	private:
+		//构造函数私有
+		Singleton(){};
+		
+		//c++98防拷贝
+		Singleton(Singleton const&);
+		Singleton& operator=(Singleton const&);
+		
+		//C++11防拷贝
+		Singleton(Singleton const&) = delete;
+		Singleton& operator=(Singleton const&) = delete;
+		
+		static Singtelon m_instance;
+		
+};
+Singleton Singtelon::m_instance;	//在程序入口之前就完成单
+
+
+
+
+
+class Singleton
+{
+	public:
+		static Singleton* GetInstance()
+		{
+			//注意这里一定要使用Double-check的方式进行加锁，才能保证效率和线程安全
+			if(nullptr == m_pInstance)
+			 {
+				 m_instance = new Singleton();
+			}
+			return &m_instance;
+		}
+		
+		
+		 
+	private:
+		//构造函数私有
+		Singleton(){};
+		
+		//c++98防拷贝
+		Singleton(Singleton const&);
+		Singleton& operator=(Singleton const&);
+		
+		//C++11防拷贝
+		Singleton(Singleton const&) = delete;
+		Singleton& operator=(Singleton const&) = delete;
+		
+		static Singtelon* m_instance;	//单例对象指针 
+		
+};
+Singleton* Singtelon::m_instance = nullptr;	
+
+
+
+
+
